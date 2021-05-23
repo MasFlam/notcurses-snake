@@ -109,22 +109,26 @@ cleanup()
 void
 game_over()
 {
-	int x = (g.termw - sizeof(" PRESS ANY KEY ")) / 2, y = g.termh / 2;
-	ncplane_set_channels(g.stdp, TEXT_CHANNELS);
-	
-	ncplane_printf_yx(g.stdp, y - 3, x - 1, "                 ");
-	ncplane_printf_yx(g.stdp, y - 2, x - 1, "                 ");
-	ncplane_printf_yx(g.stdp, y - 1, x - 1, "                 ");
-	ncplane_printf_yx(g.stdp, y + 0, x - 1, "                 ");
-	ncplane_printf_yx(g.stdp, y + 1, x - 1, "                 ");
-	ncplane_printf_yx(g.stdp, y + 2, x - 1, "                 ");
-	ncplane_printf_yx(g.stdp, y + 3, x - 1, "                 ");
-	
-	ncplane_printf_yx(g.stdp, y - 2, x, "  GAME  OVER!  ");
-	ncplane_printf_yx(g.stdp, y, x,     "  Score: %d", g.snakelen * 10);
-	ncplane_printf_yx(g.stdp, y + 2, x, " PRESS ANY KEY ");
+	char buf[100]; // this is really plenty
+	sprintf(buf, "Score: %d", g.snakelen * 10);
+	int h = 3;
+	struct ncplane *n = ncplane_create(g.stdp, &(struct ncplane_options) {
+		.x = 0,
+		.y = (g.termh - h) / 2,
+		.cols = g.termw,
+		.rows = h
+	});
+	ncplane_set_base(n, " ", 0, TEXT_CHANNELS);
+	ncplane_set_channels(n, TEXT_CHANNELS);
+	ncplane_home(n);
+	ncplane_puttext(n, 0, NCALIGN_CENTER, "GAME OVER!", NULL);
+	ncplane_home(n);
+	ncplane_puttext(n, 1, NCALIGN_CENTER, buf, NULL);
+	ncplane_home(n);
+	ncplane_puttext(n, 2, NCALIGN_CENTER, "PRESS ANY KEY", NULL);
 	notcurses_render(g.nc);
 	notcurses_getc_blocking(g.nc, NULL);
+	ncplane_destroy(n);
 }
 
 void
@@ -259,7 +263,7 @@ main_loop()
 		// Advance snake checking what it's moving onto
 		uint32_t pix;
 		ncvisual_at_yx(g.ncv, nexty, nextx, &pix);
-		if (pix == g_color.empty) {
+		if (pix == g_color.empty || (nextx == g.snake_tail->x && nexty == g.snake_tail->y)) {
 			// The snake chews on some air; nothing happens
 			move_snake_head(nextx, nexty);
 		} else if (pix == g_color.food) {
@@ -273,11 +277,9 @@ main_loop()
 			--g.foodcount;
 		} else if (pix == g_color.snake) {
 			// The snake bites on its tail - game over!
-			// edge case: if it's the tip of its tail, it slides next to it
-			if (nextx != g.snake_tail->x || nexty != g.snake_tail->y) {
-				game_over();
-				return;
-			}
+			// edge case: if it's the tip of its tail, it slides next to it; covered above
+			game_over();
+			return;
 		}
 		// Maintain the food count
 		if (g.foodcount < g.max_food) {
