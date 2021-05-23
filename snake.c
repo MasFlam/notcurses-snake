@@ -137,6 +137,15 @@ init()
 	g_color.snake = ncpixel(0, 255, 0);
 	g_color.food = ncpixel(255, 0, 0);
 	g_color.empty = ncpixel(0, 0, 0);
+	const char *s;
+	if ((s = getenv("SNAKE_FOOD_SEED"))) {
+		int seed = atoi(s);
+		if (seed == 0 && strcmp(s, "0") != 0) {
+			srand(time(NULL));
+		}
+	} else {
+		srand(time(NULL));
+	}
 	g.nc = notcurses_core_init(&(struct notcurses_options) {
 		.flags = NCOPTION_SUPPRESS_BANNERS
 	}, stdout);
