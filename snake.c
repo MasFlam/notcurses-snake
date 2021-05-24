@@ -30,6 +30,7 @@
 
 #define KEYBIND_TURN_LEFT NCKEY_LEFT
 #define KEYBIND_TURN_RIGHT NCKEY_RIGHT
+#define KEYBIND_PAUSE 'p'
 #define KEYBIND_QUIT 'q'
 
 #define FRAME_DELAY_MS 300
@@ -75,6 +76,7 @@ static void init();
 static int iskeybind(char32_t c);
 static void main_loop();
 static void move_snake_head(int x, int y);
+static void pause_game();
 static void sleep_millis(long long millis);
 
 struct g g;
@@ -111,7 +113,7 @@ game_over()
 {
 	char buf[100]; // this is really plenty
 	sprintf(buf, "Score: %d", g.snakelen * 10);
-	int h = 3;
+	static const int h = 3;
 	struct ncplane *n = ncplane_create(g.stdp, &(struct ncplane_options) {
 		.x = 0,
 		.y = (g.termh - h) / 2,
@@ -120,7 +122,6 @@ game_over()
 	});
 	ncplane_set_base(n, " ", 0, TEXT_CHANNELS);
 	ncplane_set_channels(n, TEXT_CHANNELS);
-	ncplane_home(n);
 	ncplane_puttext(n, 0, NCALIGN_CENTER, "GAME OVER!", NULL);
 	ncplane_home(n);
 	ncplane_puttext(n, 1, NCALIGN_CENTER, buf, NULL);
@@ -185,9 +186,10 @@ int
 iskeybind(char32_t c)
 {
 	switch (c) {
-	case KEYBIND_QUIT:
 	case KEYBIND_TURN_LEFT:
 	case KEYBIND_TURN_RIGHT:
+	case KEYBIND_PAUSE:
+	case KEYBIND_QUIT:
 		return 1;
 	default:
 		return 0;
@@ -232,6 +234,9 @@ main_loop()
 				case WEST: g.snakedir = NORTH; break;
 				}
 				break;
+			case KEYBIND_PAUSE:
+				pause_game();
+				continue;
 			case -1: break;
 			default: continue;
 			}
@@ -320,6 +325,26 @@ move_snake_head(int x, int y)
 		g.snake_head->y = y;
 		ncvisual_set_yx(g.ncv, g.snake_head->y, g.snake_head->x, g_color.snake);
 	}
+}
+
+void
+pause_game()
+{
+	static const int h = 2;
+	struct ncplane *n = ncplane_create(g.stdp, &(struct ncplane_options) {
+		.x = 0,
+		.y = (g.termh - h) / 2,
+		.cols = g.termw,
+		.rows = h
+	});
+	ncplane_set_base(n, " ", 0, TEXT_CHANNELS);
+	ncplane_set_channels(n, TEXT_CHANNELS);
+	ncplane_puttext(n, 0, NCALIGN_CENTER, "GAME PAUSED", NULL);
+	ncplane_home(n);
+	ncplane_puttext(n, 1, NCALIGN_CENTER, "PRESS ANY KEY", NULL);
+	notcurses_render(g.nc);
+	notcurses_getc_blocking(g.nc, NULL);
+	ncplane_destroy(n);
 }
 
 void
