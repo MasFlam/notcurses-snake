@@ -151,7 +151,7 @@ init()
 	}, stdout);
 	g.stdp = notcurses_stddim_yx(g.nc, &g.termh, &g.termw);
 	// the comment above this must be wrong coz this gave me 3x2 :/
-	g.blitter = ncvisual_media_defblitter(g.nc, NCSCALE_INFLATE);
+	g.blitter = ncvisual_media_defblitter(g.nc, NCSCALE_NONE);
 	if (g.blitter != NCBLIT_1x1) g.blitter = NCBLIT_2x1;
 	if (g.blitter == NCBLIT_1x1) {
 		g.playw = g.termw;
@@ -206,7 +206,7 @@ main_loop()
 			ncplane_erase(g.stdp);
 			ncvisual_render(g.nc, g.ncv, &(struct ncvisual_options) {
 				.n = g.stdp,
-				.scaling = NCSCALE_INFLATE,
+				.scaling = NCSCALE_NONE,
 				.blitter = g.blitter
 			});
 			ncplane_set_channels(g.stdp, TEXT_CHANNELS);
