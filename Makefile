@@ -1,7 +1,7 @@
 .PHONY: clean
 
 snake: snake.c
-	cc -o $@ $^ -lnotcurses-core
+	cc -g -o $@ $^ -lnotcurses-core
 
 clean:
 	rm -f snake

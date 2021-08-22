@@ -1,0 +1,82 @@
+
+(1) BEFORE NOTCURSES INIT:
+COMMAND   PID    USER   FD   TYPE DEVICE SIZE/OFF     NODE NAME
+snake   13087 masflam  cwd    DIR    8,2     4096 24775877 /home/masflam/coding/c/notcurses-snake
+snake   13087 masflam  rtd    DIR    8,2     4096        2 /
+snake   13087 masflam  txt    REG    8,2    23288 24772866 /home/masflam/coding/c/notcurses-snake/snake
+snake   13087 masflam  mem    REG    8,2   149520 24914894 /usr/lib/x86_64-linux-gnu/libpthread-2.31.so
+snake   13087 masflam  mem    REG    8,2    26464 24905120 /usr/lib/x86_64-linux-gnu/libqrcodegen.so.1.6.0
+snake   13087 masflam  mem    REG    8,2  1574952 24903961 /usr/lib/x86_64-linux-gnu/libunistring.so.2.1.0
+snake   13087 masflam  mem    REG    8,2  1321344 24914884 /usr/lib/x86_64-linux-gnu/libm-2.31.so
+snake   13087 masflam  mem    REG    8,2   346312 24907595 /usr/lib/x86_64-linux-gnu/libreadline.so.8.1
+snake   13087 masflam  mem    REG    8,2   187792 24907194 /usr/lib/x86_64-linux-gnu/libtinfo.so.6.2
+snake   13087 masflam  mem    REG    8,2  1839792 24914809 /usr/lib/x86_64-linux-gnu/libc-2.31.so
+snake   13087 masflam  mem    REG    8,2   334536 24911475 /usr/lib/x86_64-linux-gnu/libnotcurses-core.so.2.3.1
+snake   13087 masflam  mem    REG    8,2   177928 24905227 /usr/lib/x86_64-linux-gnu/ld-2.31.so
+snake   13087 masflam    0u   CHR  136,0      0t0        3 /dev/pts/0
+snake   13087 masflam    1u   CHR  136,0      0t0        3 /dev/pts/0
+snake   13087 masflam    2u   CHR  136,0      0t0        3 /dev/pts/0
+
+(2) AFTER NOTCURSES INIT:
+COMMAND   PID    USER   FD   TYPE DEVICE SIZE/OFF     NODE NAME
+snake   13087 masflam  cwd    DIR    8,2     4096 24775877 /home/masflam/coding/c/notcurses-snake
+snake   13087 masflam  rtd    DIR    8,2     4096        2 /
+snake   13087 masflam  txt    REG    8,2    23288 24772866 /home/masflam/coding/c/notcurses-snake/snake
+snake   13087 masflam  mem    REG    8,2  3041456 24904414 /usr/lib/locale/locale-archive
+snake   13087 masflam  mem    REG    8,2   149520 24914894 /usr/lib/x86_64-linux-gnu/libpthread-2.31.so
+snake   13087 masflam  mem    REG    8,2    26464 24905120 /usr/lib/x86_64-linux-gnu/libqrcodegen.so.1.6.0
+snake   13087 masflam  mem    REG    8,2  1574952 24903961 /usr/lib/x86_64-linux-gnu/libunistring.so.2.1.0
+snake   13087 masflam  mem    REG    8,2  1321344 24914884 /usr/lib/x86_64-linux-gnu/libm-2.31.so
+snake   13087 masflam  mem    REG    8,2   346312 24907595 /usr/lib/x86_64-linux-gnu/libreadline.so.8.1
+snake   13087 masflam  mem    REG    8,2   187792 24907194 /usr/lib/x86_64-linux-gnu/libtinfo.so.6.2
+snake   13087 masflam  mem    REG    8,2  1839792 24914809 /usr/lib/x86_64-linux-gnu/libc-2.31.so
+snake   13087 masflam  mem    REG    8,2   334536 24911475 /usr/lib/x86_64-linux-gnu/libnotcurses-core.so.2.3.1
+snake   13087 masflam  mem    REG    8,2   177928 24905227 /usr/lib/x86_64-linux-gnu/ld-2.31.so
+snake   13087 masflam    0u   CHR  136,0      0t0        3 /dev/pts/0
+snake   13087 masflam    1u   CHR  136,0      0t0        3 /dev/pts/0
+snake   13087 masflam    2u   CHR  136,0      0t0        3 /dev/pts/0
+snake   13087 masflam    3u   CHR  136,0      0t0        3 /dev/pts/0
+
+(3) AFTER NOTCURSES STOP:
+COMMAND   PID    USER   FD   TYPE DEVICE SIZE/OFF     NODE NAME
+snake   13087 masflam  cwd    DIR    8,2     4096 24775877 /home/masflam/coding/c/notcurses-snake
+snake   13087 masflam  rtd    DIR    8,2     4096        2 /
+snake   13087 masflam  txt    REG    8,2    23288 24772866 /home/masflam/coding/c/notcurses-snake/snake
+snake   13087 masflam  mem    REG    8,2  3041456 24904414 /usr/lib/locale/locale-archive
+snake   13087 masflam  mem    REG    8,2   149520 24914894 /usr/lib/x86_64-linux-gnu/libpthread-2.31.so
+snake   13087 masflam  mem    REG    8,2    26464 24905120 /usr/lib/x86_64-linux-gnu/libqrcodegen.so.1.6.0
+snake   13087 masflam  mem    REG    8,2  1574952 24903961 /usr/lib/x86_64-linux-gnu/libunistring.so.2.1.0
+snake   13087 masflam  mem    REG    8,2  1321344 24914884 /usr/lib/x86_64-linux-gnu/libm-2.31.so
+snake   13087 masflam  mem    REG    8,2   346312 24907595 /usr/lib/x86_64-linux-gnu/libreadline.so.8.1
+snake   13087 masflam  mem    REG    8,2   187792 24907194 /usr/lib/x86_64-linux-gnu/libtinfo.so.6.2
+snake   13087 masflam  mem    REG    8,2  1839792 24914809 /usr/lib/x86_64-linux-gnu/libc-2.31.so
+snake   13087 masflam  mem    REG    8,2   334536 24911475 /usr/lib/x86_64-linux-gnu/libnotcurses-core.so.2.3.1
+snake   13087 masflam  mem    REG    8,2    27002 24929818 /usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache
+snake   13087 masflam  mem    REG    8,2   177928 24905227 /usr/lib/x86_64-linux-gnu/ld-2.31.so
+snake   13087 masflam    0u   CHR  136,0      0t0        3 /dev/pts/0
+snake   13087 masflam    1u   CHR  136,0      0t0        3 /dev/pts/0
+snake   13087 masflam    2u   CHR  136,0      0t0        3 /dev/pts/0
+
+(4) AFTER NOTUCRSES STOP + SLEEP:
+COMMAND   PID    USER   FD   TYPE DEVICE SIZE/OFF     NODE NAME
+snake   13087 masflam  cwd    DIR    8,2     4096 24775877 /home/masflam/coding/c/notcurses-snake
+snake   13087 masflam  rtd    DIR    8,2     4096        2 /
+snake   13087 masflam  txt    REG    8,2    23288 24772866 /home/masflam/coding/c/notcurses-snake/snake
+snake   13087 masflam  mem    REG    8,2  3041456 24904414 /usr/lib/locale/locale-archive
+snake   13087 masflam  mem    REG    8,2   149520 24914894 /usr/lib/x86_64-linux-gnu/libpthread-2.31.so
+snake   13087 masflam  mem    REG    8,2    26464 24905120 /usr/lib/x86_64-linux-gnu/libqrcodegen.so.1.6.0
+snake   13087 masflam  mem    REG    8,2  1574952 24903961 /usr/lib/x86_64-linux-gnu/libunistring.so.2.1.0
+snake   13087 masflam  mem    REG    8,2  1321344 24914884 /usr/lib/x86_64-linux-gnu/libm-2.31.so
+snake   13087 masflam  mem    REG    8,2   346312 24907595 /usr/lib/x86_64-linux-gnu/libreadline.so.8.1
+snake   13087 masflam  mem    REG    8,2   187792 24907194 /usr/lib/x86_64-linux-gnu/libtinfo.so.6.2
+snake   13087 masflam  mem    REG    8,2  1839792 24914809 /usr/lib/x86_64-linux-gnu/libc-2.31.so
+snake   13087 masflam  mem    REG    8,2   334536 24911475 /usr/lib/x86_64-linux-gnu/libnotcurses-core.so.2.3.1
+snake   13087 masflam  mem    REG    8,2    27002 24929818 /usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache
+snake   13087 masflam  mem    REG    8,2   177928 24905227 /usr/lib/x86_64-linux-gnu/ld-2.31.so
+snake   13087 masflam    0u   CHR  136,0      0t0        3 /dev/pts/0
+snake   13087 masflam    1u   CHR  136,0      0t0        3 /dev/pts/0
+snake   13087 masflam    2u   CHR  136,0      0t0        3 /dev/pts/0
+
+(1) doesn't have [... /usr/lib/locale/locale-archive] and [... 3u ... /dev/pts/0], while (2) has them
+(2) has [... 3u ... /dev/pts/0], while (3) doesn't, and (2) doesn't have [... /usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache]
+(3) and (4) are identical

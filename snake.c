@@ -35,7 +35,7 @@
 
 #define FRAME_DELAY_MS 300
 
-#define TEXT_CHANNELS CHANNELS_RGB_INITIALIZER(255, 255, 255, 20, 20, 20)
+#define TEXT_CHANNELS NCCHANNELS_INITIALIZER(255, 255, 255, 20, 20, 20)
 
 enum direction {
 	NORTH,
@@ -73,7 +73,7 @@ static void add_random_food();
 static void cleanup();
 static void game_over();
 static void init();
-static int iskeybind(char32_t c);
+static int iskeybind(uint32_t c);
 static void main_loop();
 static void move_snake_head(int x, int y);
 static void pause_game();
@@ -100,12 +100,12 @@ cleanup()
 {
 	ncvisual_destroy(g.ncv);
 	notcurses_stop(g.nc);
-	struct segment *seg = g.snake_tail;
-	while (seg->next) {
+	struct segment *seg = g.snake_tail, *tmp;
+	while (seg) {
+		tmp = seg;
 		seg = seg->next;
-		free(seg->prev);
+		free(tmp);
 	}
-	free(seg);
 }
 
 void
@@ -183,7 +183,7 @@ init()
 }
 
 int
-iskeybind(char32_t c)
+iskeybind(uint32_t c)
 {
 	switch (c) {
 	case KEYBIND_TURN_LEFT:
@@ -200,11 +200,11 @@ void
 main_loop()
 {
 	struct ncinput ni = { .id = -1 };
-	char32_t c = -1;
+	uint32_t c = -1;
 	do {
 		// Render, but only if a bound key was pressed or when no key was pressed.
 		// Minimizes the effect of holding down an unbound key
-		if (c == -1 || iskeybind(c)) {
+		if (c == (uint32_t) -1 || iskeybind(c)) {
 			ncplane_erase(g.stdp);
 			ncvisual_render(g.nc, g.ncv, &(struct ncvisual_options) {
 				.n = g.stdp,
@@ -284,6 +284,8 @@ main_loop()
 			// The snake eats food - elongate its tail!
 			struct segment *seg = malloc(sizeof(struct segment));
 			seg->next = g.snake_tail;
+			seg->prev = NULL;
+			seg->x = seg->y = -1;
 			g.snake_tail->prev = seg;
 			g.snake_tail = seg;
 			++g.snakelen;
@@ -310,9 +312,12 @@ move_snake_head(int x, int y)
 		// Recycle the tail for it to become the head - saves malloc()s
 		// (not that it matters for a snake game but it's always nice)
 		struct segment *seg = g.snake_tail;
-		ncvisual_set_yx(g.ncv, seg->y, seg->x, g_color.empty);
-		g.snake_tail->next->prev = NULL;
+		if (seg->x != -1) {
+			ncvisual_set_yx(g.ncv, seg->y, seg->x, g_color.empty);
+		}
+		seg->next->prev = NULL;
 		g.snake_tail = g.snake_tail->next;
+		seg->next = NULL;
 		seg->prev = g.snake_head;
 		g.snake_head->next = seg;
 		g.snake_head = seg;
