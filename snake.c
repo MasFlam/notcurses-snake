@@ -128,7 +128,7 @@ game_over()
 	ncplane_home(n);
 	ncplane_puttext(n, 2, NCALIGN_CENTER, "PRESS ANY KEY", NULL);
 	notcurses_render(g.nc);
-	notcurses_getc_blocking(g.nc, NULL);
+	notcurses_get_blocking(g.nc, NULL);
 	ncplane_destroy(n);
 }
 
@@ -204,9 +204,9 @@ main_loop()
 	do {
 		// Render, but only if a bound key was pressed or when no key was pressed.
 		// Minimizes the effect of holding down an unbound key
-		if (c == (uint32_t) -1 || iskeybind(c)) {
+		if (c == (uint32_t) -1 || c == 0 || iskeybind(c)) {
 			ncplane_erase(g.stdp);
-			ncvisual_render(g.nc, g.ncv, &(struct ncvisual_options) {
+			ncvisual_blit(g.nc, g.ncv, &(struct ncvisual_options) {
 				.n = g.stdp,
 				.scaling = NCSCALE_NONE,
 				.blitter = g.blitter
@@ -216,7 +216,7 @@ main_loop()
 			notcurses_render(g.nc);
 		}
 		// Process user input
-		if (!ni.alt && !ni.ctrl && !ni.shift) {
+		if (c > 0 && ni.evtype == NCTYPE_RELEASE && !ni.alt && !ni.ctrl && !ni.shift) {
 			switch (c) {
 			case KEYBIND_TURN_LEFT:
 				switch (g.snakedir) {
@@ -237,11 +237,7 @@ main_loop()
 			case KEYBIND_PAUSE:
 				pause_game();
 				continue;
-			case -1: break;
-			default: continue;
 			}
-		} else {
-			continue;
 		}
 		// Calculate next head position
 		int headx = g.snake_head->x, heady = g.snake_head->y;
@@ -302,7 +298,7 @@ main_loop()
 			add_random_food();
 		}
 		sleep_millis(FRAME_DELAY_MS);
-	} while ((c = notcurses_getc_nblock(g.nc, &ni)) != KEYBIND_QUIT);
+	} while ((c = notcurses_get_nblock(g.nc, &ni)) != KEYBIND_QUIT);
 }
 
 void
@@ -348,7 +344,7 @@ pause_game()
 	ncplane_home(n);
 	ncplane_puttext(n, 1, NCALIGN_CENTER, "PRESS ANY KEY", NULL);
 	notcurses_render(g.nc);
-	notcurses_getc_blocking(g.nc, NULL);
+	notcurses_get_blocking(g.nc, NULL);
 	ncplane_destroy(n);
 }
 
